@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+* {
+  font-family: "Sour Gummy", sans-serif;
+}
+
+body {
+  background-color: #6ccddb;
+  transition: background-color 0.2s ease-out;
+}
