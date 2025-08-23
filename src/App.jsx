@@ -150,10 +150,10 @@ function App() {
       document.body.style.background = "#b6ff6e";
       setTimeout(() => {
         setAnswered(false);
-        document.body.style.background = "#6ccddb";
+        document.body.style.background = 'url("./background.png") 50% / cover';
         setIsFlagFullyLoaded(false);
         nextIndex();
-      }, 1000);
+      }, 1000 /* 1000 */);
     } else {
       incorrectSound.play();
       setIncorrectCount(incorrectCount + 1);
@@ -162,7 +162,8 @@ function App() {
         setScore(score - 1);
         setTimeout(() => {
           setAnswered(false);
-          document.body.style.background = "#6ccddb";
+          document.body.style.background =
+            'url("./background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
         }, 1000);
@@ -170,36 +171,47 @@ function App() {
         document.body.style.background = "#ff816e";
         setTimeout(() => {
           setAnswered(false);
-          document.body.style.background = "#6ccddb";
+          document.body.style.background =
+            'url("./background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
-        }, 1000);
+        }, 1000 /* 1000 */);
       }
     }
   }
 
   /* detects when the user earns an achivement */
   useEffect(() => {
-    setAchivements((prev) => {
-      const prevAchivements = { ...prev };
-      if (score > 24) prevAchivements.firstAchivement = true;
-      if (score > 99) prevAchivements.secondAchivement = true;
-      if (score > 193) prevAchivements.thirdAchivement = true;
-      return prevAchivements;
-    });
-
-    switch (score) {
-      case 25:
+    if (score > 24) {
+      setAchivements((prev) => ({ ...prev, firstAchivement: true }));
+      if (!achivements.firstAchivement) {
         setAchivementIndex(0);
-        break;
-      case 100:
+      }
+      localStorage.setItem("achivements", JSON.stringify(achivements));
+    }
+    if (score > 99) {
+      setAchivements((prev) => ({ ...prev, secondAchivement: true }));
+      if (!achivements.secondAchivement) {
         setAchivementIndex(1);
-        break;
-      case 194:
+      }
+      localStorage.setItem("achivements", JSON.stringify(achivements));
+    }
+    if (score > 193) {
+      setAchivements((prev) => ({ ...prev, thirdAchivement: true }));
+      if (!achivements.thirdAchivement) {
         setAchivementIndex(2);
-        break;
+      }
+      localStorage.setItem("achivements", JSON.stringify(achivements));
     }
   }, [score]);
+
+  /* cached achivements are loaded */
+  useEffect(() => {
+    let cachedAchivements = JSON.parse(localStorage.getItem("achivements"));
+    if (cachedAchivements) {
+      setAchivements(cachedAchivements);
+    }
+  }, []);
 
   return (
     <>
@@ -278,7 +290,11 @@ function App() {
           {/* loading screen for the flag */}
           {!isFlagFullyLoaded && (
             <div className="w-full h-[100dvh]  fixed flex justify-center items-center">
-              <img src="./loading.gif" alt="loading" className="max-w-[8rem]" />
+              <img
+                src="./loading.gif"
+                alt="loading"
+                className="max-w-[8rem] loading-delay"
+              />
             </div>
           )}
 

@@ -5,6 +5,6 @@
 }
 
 body {
-  background-color: #6ccddb;
+  background: url("./background.png") 50% / cover;
   transition: background-color 0.2s ease-out;
 }
