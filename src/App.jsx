@@ -150,7 +150,7 @@ function App() {
       document.body.style.background = "#b6ff6e";
       setTimeout(() => {
         setAnswered(false);
-        document.body.style.background = 'url("./background.png") 50% / cover';
+        document.body.style.background = 'url("../background.png") 50% / cover';
         setIsFlagFullyLoaded(false);
         nextIndex();
       }, 1000 /* 1000 */);
@@ -163,7 +163,7 @@ function App() {
         setTimeout(() => {
           setAnswered(false);
           document.body.style.background =
-            'url("./background.png") 50% / cover';
+            'url("../background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
         }, 1000);
@@ -172,7 +172,7 @@ function App() {
         setTimeout(() => {
           setAnswered(false);
           document.body.style.background =
-            'url("./background.png") 50% / cover';
+            'url("../background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
         }, 1000 /* 1000 */);
