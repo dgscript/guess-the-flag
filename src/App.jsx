@@ -111,6 +111,12 @@ function App() {
   function populateOptions() {
     let options = [];
 
+    if (difficulty === "easy") {
+      options = [
+        countryNames[Math.floor(Math.random() * countries.length)],
+        countries[flagIndex].name.common,
+      ];
+    }
     if (difficulty === "normal") {
       options = [
         countryNames[Math.floor(Math.random() * countries.length)],
@@ -210,9 +216,7 @@ function App() {
 
       {isGameStarted && !isGameEnded && (
         <div
-          className={`bg-green max-md:flex-col w-full h-dvh flex justify-center items-center transition-opacity  ${
-            isFlagFullyLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className={`bg-green max-md:flex-col w-full h-dvh flex justify-center items-center transition-opacity`}
         >
           {/* return button */}
           <button
@@ -271,62 +275,37 @@ function App() {
             </p>
           </div>
 
-          {/* div with the flag */}
-          <div className="outline-2 p-5 shadow-[10px_10px_black]  bg-white md:mr-5 max-md:mb-5 mx-5">
-            <p className="text-2xl pb-5 text-center font-bold">
-              {answered ? correctAnswer : "Which flag is this?"}
-            </p>
-            <img
-              src={currentFlag}
-              alt="flag"
-              className="h-52 max-[424px]:h-44"
-              onLoad={() => {
-                setIsFlagFullyLoaded(true);
-                let currentAnswer = countries[flagIndex].name.common;
-                setCorrectAnswer(currentAnswer);
-              }}
-            />
-          </div>
+          {/* loading screen for the flag */}
+          {!isFlagFullyLoaded && (
+            <div className="w-full h-[100dvh]  fixed flex justify-center items-center">
+              <img src="./loading.gif" alt="loading" className="max-w-[8rem]" />
+            </div>
+          )}
 
-          {/* div containing the option buttons */}
-          <div className="outline-2 p-5 shadow-[10px_10px_black] *:outline-2 *:p-2 *:bg-blue-400 font-semibold flex flex-col gap-4 min-w-2xs *:hover:bg-blue-500 *:hover:cursor-pointer bg-white text-[1.3rem] *:transition max-[374px]:*:text-[1rem]">
-            <button
-              onClick={(e) => {
-                handleAnswers(e.target.dataset.option);
-                e.target.disabled = true;
-                setTimeout(() => {
-                  e.target.disabled = false;
-                }, 1000);
-              }}
-              data-option={options[0]}
-            >
-              {options[0]}
-            </button>
-            <button
-              onClick={(e) => {
-                handleAnswers(e.target.dataset.option);
-                e.target.disabled = true;
-                setTimeout(() => {
-                  e.target.disabled = false;
-                }, 1000);
-              }}
-              data-option={options[1]}
-            >
-              {options[1]}
-            </button>
-            <button
-              onClick={(e) => {
-                handleAnswers(e.target.dataset.option);
-                e.target.disabled = true;
-                setTimeout(() => {
-                  e.target.disabled = false;
-                }, 1000);
-              }}
-              data-option={options[2]}
-            >
-              {options[2]}
-            </button>
-            {difficulty === "hard" && (
+          <div
+            className={`bg-green max-md:flex-col w-full h-dvh flex justify-center items-center transition-opacity  ${
+              isFlagFullyLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {/* div with the flag */}
+            <div className="outline-2 p-5 shadow-[10px_10px_black]  bg-white md:mr-5 max-md:mb-5 mx-5">
+              <p className="text-2xl pb-5 text-center font-bold">
+                {answered ? correctAnswer : "Which flag is this?"}
+              </p>
+              <img
+                src={currentFlag}
+                alt="flag"
+                className="h-52 max-[424px]:h-44"
+                onLoad={() => {
+                  setIsFlagFullyLoaded(true);
+                  let currentAnswer = countries[flagIndex].name.common;
+                  setCorrectAnswer(currentAnswer);
+                }}
+              />
+            </div>
+
+            {/* div containing the option buttons */}
+            <div className="outline-2 p-5 shadow-[10px_10px_black] *:outline-2 *:p-2 *:bg-blue-400 font-semibold flex flex-col gap-4 min-w-2xs *:hover:bg-blue-500 *:hover:cursor-pointer bg-white text-[1.3rem] *:transition max-[374px]:*:text-[1rem]">
               <button
                 onClick={(e) => {
                   handleAnswers(e.target.dataset.option);
@@ -335,12 +314,10 @@ function App() {
                     e.target.disabled = false;
                   }, 1000);
                 }}
-                data-option={options[3]}
+                data-option={options[0]}
               >
-                {options[3]}
+                {options[0]}
               </button>
-            )}
-            {difficulty === "hard" && (
               <button
                 onClick={(e) => {
                   handleAnswers(e.target.dataset.option);
@@ -349,11 +326,53 @@ function App() {
                     e.target.disabled = false;
                   }, 1000);
                 }}
-                data-option={options[4]}
+                data-option={options[1]}
               >
-                {options[4]}
+                {options[1]}
               </button>
-            )}
+              {difficulty === "normal" && (
+                <button
+                  onClick={(e) => {
+                    handleAnswers(e.target.dataset.option);
+                    e.target.disabled = true;
+                    setTimeout(() => {
+                      e.target.disabled = false;
+                    }, 1000);
+                  }}
+                  data-option={options[2]}
+                >
+                  {options[2]}
+                </button>
+              )}
+              {difficulty === "hard" && (
+                <button
+                  onClick={(e) => {
+                    handleAnswers(e.target.dataset.option);
+                    e.target.disabled = true;
+                    setTimeout(() => {
+                      e.target.disabled = false;
+                    }, 1000);
+                  }}
+                  data-option={options[3]}
+                >
+                  {options[3]}
+                </button>
+              )}
+              {difficulty === "hard" && (
+                <button
+                  onClick={(e) => {
+                    handleAnswers(e.target.dataset.option);
+                    e.target.disabled = true;
+                    setTimeout(() => {
+                      e.target.disabled = false;
+                    }, 1000);
+                  }}
+                  data-option={options[4]}
+                >
+                  {options[4]}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

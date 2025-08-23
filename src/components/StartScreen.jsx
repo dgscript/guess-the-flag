@@ -57,7 +57,7 @@ export default function StartScreen({
         )}
 
         {isOptionsActive && (
-          <div className="relative">
+          <div className="relative min-w-[17rem]">
             <button
               onClick={() => {
                 setIsOptionsActive(false);
@@ -137,7 +137,17 @@ export default function StartScreen({
             </div>
 
             <p className="text-2xl pb-3">Difficulty</p>
-            <div className="flex gap-5 pb-7">
+            <div className="flex gap-5 pb-7 max-[475px]:flex-col">
+              <button
+                onClick={() => {
+                  setDifficulty("easy");
+                }}
+                className={`bg-green-300 text-black border-2 border-black py-2 px-5 font-semibold text-3xl hover:cursor-pointer hover:bg-green-400 transition ${
+                  difficulty === "easy" && "outline-3 outline-blue-400"
+                }`}
+              >
+                EASY
+              </button>
               <button
                 onClick={() => {
                   setDifficulty("normal");
