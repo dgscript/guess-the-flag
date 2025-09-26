@@ -14,6 +14,7 @@ function App() {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [gameLength, setGameLength] = useState(0);
+  const [gameSpeed, setGameSpeed] = useState(1000);
   const [score, setScore] = useState(0);
   const [randomIndexes, setRandomIndexes] = useState([]);
   const [options, setOptions] = useState([]);
@@ -153,7 +154,7 @@ function App() {
         document.body.style.background = 'url("../background.png") 50% / cover';
         setIsFlagFullyLoaded(false);
         nextIndex();
-      }, 1000 /* 1000 */);
+      }, gameSpeed /* 1000 */);
     } else {
       incorrectSound.play();
       setIncorrectCount(incorrectCount + 1);
@@ -166,7 +167,7 @@ function App() {
             'url("../background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
-        }, 1000);
+        }, gameSpeed /* 1000 */);
       } else {
         document.body.style.background = "#ff816e";
         setTimeout(() => {
@@ -175,7 +176,7 @@ function App() {
             'url("../background.png") 50% / cover';
           setIsFlagFullyLoaded(false);
           nextIndex();
-        }, 1000 /* 1000 */);
+        }, gameSpeed /* 1000 */);
       }
     }
   }
@@ -223,6 +224,8 @@ function App() {
           setAchivementsTab={setAchivementsTab}
           setGameLength={setGameLength}
           gameLength={gameLength}
+          setGameSpeed={setGameSpeed}
+          gameSpeed={gameSpeed}
         />
       )}
 
@@ -346,7 +349,7 @@ function App() {
               >
                 {options[1]}
               </button>
-              {difficulty === "normal" && (
+              {(difficulty === "normal" || difficulty === "hard") && (
                 <button
                   onClick={(e) => {
                     handleAnswers(e.target.dataset.option);

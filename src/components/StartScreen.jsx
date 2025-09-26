@@ -7,6 +7,8 @@ export default function StartScreen({
   setAchivementsTab,
   gameLength,
   setGameLength,
+  setGameSpeed,
+  gameSpeed,
 }) {
   const [isOptionsActive, setIsOptionsActive] = useState(false);
   const [isLogoLoaded, setIsLogoLoaded] = useState(false);
@@ -167,6 +169,30 @@ export default function StartScreen({
                 }`}
               >
                 HARD
+              </button>
+            </div>
+
+            <p className="text-2xl pb-3">Game Speed</p>
+            <div className="flex gap-5 pb-7 max-[475px]:flex-col">
+              <button
+                onClick={() => {
+                  setGameSpeed(1000);
+                }}
+                className={`grow bg-blue-200 text-black border-2 border-black py-2 px-5 font-semibold text-3xl hover:cursor-pointer hover:bg-blue-300 transition ${
+                  gameSpeed === 1000 && "outline-3 outline-blue-400"
+                }`}
+              >
+                NORMAL
+              </button>
+              <button
+                onClick={() => {
+                  setGameSpeed(100);
+                }}
+                className={`grow bg-blue-200 text-black border-2 border-black py-2 px-5 font-semibold text-3xl hover:cursor-pointer hover:bg-blue-300 transition ${
+                  gameSpeed === 100 && "outline-3 outline-blue-400"
+                }`}
+              >
+                FAST
               </button>
             </div>
 
